@@ -1,29 +1,31 @@
-# Veil for Android
+# Wayfare VPN (demo) - Android project
 
-A small WireGuard client. It uses the official `com.wireguard.android:tunnel`
-library, the same engine as the WireGuard app. It was not compiled or tested
-where it was written, so expect to fix a small thing or two on first build.
+This is a DEMO interface. It does not create a VPN tunnel, encrypt, or reroute traffic.
+The in-app Declaration says so. Please keep it in place.
 
-## Build the APK
-1. Install Android Studio (free) on a computer.
-2. File > Open, choose this `veil-android` folder, and let Gradle sync.
-   (Accept any prompt to download the SDK or use the default Gradle.)
-3. Build > Build Bundle(s) / APK(s) > Build APK(s).
-4. The file is at `app/build/outputs/apk/debug/app-debug.apk`.
-5. Copy it to your phone and allow "Install unknown apps" for your file manager.
-   Or plug the phone in with USB debugging on and press Run.
+## Build an APK (Capacitor + Android Studio)
 
-## Use it
-1. Set up a server with `setup-wireguard.sh` (see that file).
-2. Paste the contents of `/root/veil-client.conf` into the app and tap Connect.
-3. Approve Android's one-time "Connection request" dialog.
+You need: Node.js (LTS) and Android Studio.
 
-## Kill switch
-Android does this at system level: Settings > Network > VPN > Veil >
-turn on "Always-on VPN" and "Block connections without VPN".
+1. Open a terminal in this folder and run:
+   npm install @capacitor/core @capacitor/android
+   npm install -D @capacitor/cli
+2. Add the Android project:
+   npx cap add android
+   npx cap sync android
+3. Open it in Android Studio:
+   npx cap open android
+4. In Android Studio: Build > Build Bundle(s) / APK(s) > Build APK(s).
+   The debug APK lands in android/app/build/outputs/apk/debug/app-debug.apk
+5. Copy that file to your phone and install it (allow "install unknown apps" when asked).
 
-## Notes
-- The config, including your private key, is stored in the app's private storage.
-  For a release build, move it to EncryptedSharedPreferences or the Android Keystore.
-- One server only. IPv6 is routed into the tunnel and dropped by the server,
-  which prevents IPv6 leaks.
+Change the app id in capacitor.config.json (com.example.wayfaredemo) before you build
+if you want your own package name.
+
+## No Android Studio?
+The whole app is one file: www/index.html. Online web-to-APK converters
+(for example PWABuilder or WebIntoApp) accept that file or a zip of it.
+
+## Note
+Real VPN apps on Android must use the system VpnService API and a real server network.
+Google Play also has extra rules for VPN apps, so this demo is for personal use only.
