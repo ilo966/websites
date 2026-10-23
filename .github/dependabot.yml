@@ -1,14 +1,4 @@
-version: 2
-updates:
-
-  # Maintain dependencies for GitHub Actions
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "daily"
-
-  # Maintain dependencies for npm
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "daily"
+npm install
+npx cap add android
+npx cap sync android
+npx cap open android      # then Build > Build APK(s)
